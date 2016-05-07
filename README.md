@@ -28,11 +28,13 @@ sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 20
 sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
 wget http://node-arm.herokuapp.com/node_latest_armhf.deb sudo dpkg -i node_latest_armhf.deb node -v
 ```
-### Install FFMpeg
+### Compile and Install FFMpeg
 ```
 cd ~/PiCamBot/bin
 ./install_ffmpeg.sh
 ```
+The process needs one more hour.
+
 ### Install Npm Modules
 ```
 cd ~/PiCamBot
