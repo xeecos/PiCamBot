@@ -119,7 +119,7 @@ server.listen(configServer.streamPort, function () {
   console.log('Listening for video stream on port ' + configServer.streamPort);
 
   // Run do_ffmpeg.sh from node                                                   
-  childProcess.exec('./bin/do_ffmpeg.sh');
+  childProcess.exec('/home/pi/PiCamBot/bin/do_ffmpeg.sh');
 });
 server.timeout = 0;
 module.exports.app = app;

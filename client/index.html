@@ -23,10 +23,17 @@ body {
     $.post("/move",{l:leftSpeed,r:rightSpeed},function(result){});
   }
   function connectSerial(){
-    console.log($("#_serialport").val());
-    $.post("/connect", {port: $("#_serialport").val()}, function(result){
+     if($("#connectButton").html().indexOf("Connect")>-1){
+        $("#connectButton").html("Disconnect");
+      $.post("/connect", {port: $("#_serialport").val()}, function(result){
             console.log(result);
         });
+    }else{
+        $("#connectButton").html("Connect");
+      $.post("/disconnect", {port: $("#_serialport").val()}, function(result){
+            console.log(result);
+        });
+    }
   }
 </script>
 <p>
