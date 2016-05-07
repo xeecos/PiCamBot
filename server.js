@@ -3,6 +3,10 @@ var childProcess = require('child_process')
   , http = require('http')
   , morgan = require('morgan')
   , ws = require('ws');
+var bodyParser = require('body-parser')
+var Serial = require('serialport');
+var SerialPort = Serial.SerialPort;
+var serialPort = null;
 // configuration files
 var configServer = require('./lib/config/server');
 
@@ -11,6 +15,8 @@ console.log("READY");
 var app = express();
 app.set('port', configServer.httpPort);
 app.use(express.static(configServer.staticFolder));
+app.use(bodyParser.json({limit: '16mb'}));
+app.use(bodyParser.urlencoded({ limit:'16mb',extended: true }));
 app.use(morgan('dev'));
 
 
@@ -20,6 +26,47 @@ require('./lib/routes').serveIndex(app, configServer.staticFolder);
 // HTTP server
 http.createServer(app).listen(app.get('port'), function () {
   console.log('HTTP server listening on port ' + app.get('port'));
+});
+function sendMove(leftSpeed,rightSpeed){
+  if(serialPort){
+    var buf = new Buffer([0xff,0x55,0x7,0x0,0x2,0x5,0,0,0,0]);
+    buf.writeInt16LE(leftSpeed,6);
+    buf.writeInt16LE(rightSpeed,8);
+    serialPort.write(buf,function(err,res){
+      console.log(err,res);
+    });
+  }
+}
+app.post('/move', function (req, res) {
+  sendMove(req.body.l,req.body.r);
+  res.send("ok");
+});
+app.post('/connect',(req,res) => {
+    serialPort = new SerialPort(req.body.port, {baudrate: 115200});
+    serialPort.on('open', function () {
+      console.log('serial opened!');
+      serialPort.on('data', function (data) {
+      });
+    });
+    serialPort.on('close', function () {
+      console.log('close');
+    })
+    res.send('ok');
+});
+app.post('/list',(req,res) => {
+  Serial.list(function (err, ports) {
+      var result = "";
+      ports.forEach(function(port) {
+         result+=port.comName+",";
+      });
+      res.send(result.substr(0,result.length-1));
+  });   
+});
+app.post('/disconnect',(req,res) => {
+    if(serialPort){
+        serialPort.close();
+    }
+    serialPort = null;
 });
 
 var STREAM_MAGIC_BYTES = 'jsmp'; // Must be 4 bytes
