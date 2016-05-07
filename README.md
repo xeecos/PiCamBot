@@ -1,7 +1,7 @@
 # PiCamBot
-PiCamBot is a bot for live stream through Wifi. 
+PiCamBot is a bot for live stream through Wifi. [Video link](https://www.youtube.com/watch?v=vlaxeGBcrjk)
 
-![image](https://github.com/xeecos/PiCamBot/raw/master/images/2.jpg)
+[![video](https://github.com/xeecos/PiCamBot/raw/master/images/2.jpg)](https://www.youtube.com/watch?v=vlaxeGBcrjk)
 
 ## Prepare For MegaPi
   MegaPi is an Arduino compatible board based on Mega2560.
