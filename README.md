@@ -15,14 +15,28 @@ PiCamBot is a bot for live stream through Wifi.
  ![image](https://raw.githubusercontent.com/Makeblock-official/PythonForMegaPi/master/images/firmware.jpg)
  * Compile and upload firmware according to your board type.
 ## Prepare For Raspberry Pi
+```
+cd ~
+git clone https://github.com/xeecos/PiCamBot
+```
+### Install NodeJs
+```
+sudo apt-get update
+sudo apt-get install gcc-4.8 g++-4.8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 20
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 20
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+wget http://node-arm.herokuapp.com/node_latest_armhf.deb sudo dpkg -i node_latest_armhf.deb node -v
+```
+### Install FFMpeg
+```
+cd PiCamBot/bin
+./install_ffmpeg.sh
+```
+### Install Npm Modules
 
-## Install NodeJs
+### Running Server
 
-## Install FFMpeg
-
-## Install Npm Modules
-
-## Running Server
-
-## Controlling Bot On Browser
+### Controlling Bot On Browser
 
