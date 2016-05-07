@@ -1,8 +1,6 @@
 # PiCamBot
 PiCamBot is a bot for live stream through Wifi. 
 
-![image](https://github.com/xeecos/PiCamBot/raw/master/images/1.jpg)
-
 ![image](https://github.com/xeecos/PiCamBot/raw/master/images/2.jpg)
 
 ## Prepare For MegaPi
@@ -31,12 +29,18 @@ wget http://node-arm.herokuapp.com/node_latest_armhf.deb sudo dpkg -i node_lates
 ```
 ### Install FFMpeg
 ```
-cd PiCamBot/bin
+cd ~/PiCamBot/bin
 ./install_ffmpeg.sh
 ```
 ### Install Npm Modules
-
+```
+cd ~/PiCamBot
+npm install
+```
 ### Running Server
-
+```
+node server.js
+```
 ### Controlling Bot On Browser
 
+![image](https://github.com/xeecos/PiCamBot/raw/master/images/1.jpg)
