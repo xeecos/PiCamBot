@@ -43,5 +43,8 @@ npm install
 node server.js
 ```
 ### Controlling Bot On Browser
-
+open the control page on your pc/tablet's browser
+```
+http://your rpi's ip:8080/
+```
 ![image](https://github.com/xeecos/PiCamBot/raw/master/images/1.jpg)
