@@ -12,6 +12,7 @@ PiCamBot is a bot for live stream through Wifi.
  * Open Arduino IDE, choose the firmware from <em>File&gt;Examples</em>.
  ![image](https://raw.githubusercontent.com/Makeblock-official/PythonForMegaPi/master/images/firmware.jpg)
  * Compile and upload firmware according to your board type.
+
 ## Prepare For Raspberry Pi
 ```
 cd ~
