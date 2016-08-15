@@ -1,7 +1,7 @@
 {
-  "name": "cubesolver",
+  "name": "PiCamBot",
   "version": "1.0.0",
-  "description": "rubik cube solver based on rpi",
+  "description": "camera bot based on rpi",
   "main": "server.js",
   "dependencies": {
     "express": "^4.13.4",
@@ -17,12 +17,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xeecos/RubikCubeSolver.git"
+    "url": "git+https://github.com/xeecos/PiCamBot.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xeecos/RubikCubeSolver/issues"
+    "url": "https://github.com/xeecos/PiCamBot/issues"
   },
-  "homepage": "https://github.com/xeecos/RubikCubeSolver#readme"
+  "homepage": "https://github.com/xeecos/PiCamBot#readme"
 }
