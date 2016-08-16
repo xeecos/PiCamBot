@@ -7,6 +7,7 @@ var bodyParser = require('body-parser')
 var Serial = require('serialport');
 var SerialPort = Serial.SerialPort;
 var serialPort = null;
+var isConnect = false;
 // configuration files
 var configServer = require('./lib/config/server');
 
@@ -28,7 +29,7 @@ http.createServer(app).listen(app.get('port'), function () {
   console.log('HTTP server listening on port ' + app.get('port'));
 });
 function sendMove(leftSpeed,rightSpeed){
-  if(serialPort){
+  if(serialPort&&isConnect){
     var buf = new Buffer([0xff,0x55,0x7,0x0,0x2,0x5,0,0,0,0]);
     buf.writeInt16LE(leftSpeed,6);
     buf.writeInt16LE(rightSpeed,8);
@@ -38,7 +39,7 @@ function sendMove(leftSpeed,rightSpeed){
   }
 }
 function sendTilt(tilt){
-  if(serialPort){
+  if(serialPort&&isConnect){
     var buf = new Buffer([0xff,0x55,0x6,0x0,0x2,0xb,0x6,0x1,tilt]);
     serialPort.write(buf,function(err,res){
       console.log(err,res);
@@ -54,15 +55,20 @@ app.post('/move', function (req, res) {
   res.send("ok");
 });
 app.post('/connect',(req,res) => {
+	if(isConnect==false){
     serialPort = new SerialPort(req.body.port, {baudrate: 115200});
     serialPort.on('open', function () {
       console.log('serial opened!');
+	isConnect = true;
       serialPort.on('data', function (data) {
+	console.log(data);
       });
     });
     serialPort.on('close', function () {
+	isConnect = false;
       console.log('close');
     })
+	}
     res.send('ok');
 });
 app.post('/list',(req,res) => {
@@ -75,7 +81,7 @@ app.post('/list',(req,res) => {
   });   
 });
 app.post('/disconnect',(req,res) => {
-    if(serialPort){
+    if(serialPort&&isConnect){
         serialPort.close();
     }
     serialPort = null;
