@@ -37,6 +37,18 @@ function sendMove(leftSpeed,rightSpeed){
     });
   }
 }
+function sendTilt(tilt){
+  if(serialPort){
+    var buf = new Buffer([0xff,0x55,0x6,0x0,0x2,0xb,0x6,0x1,tilt]);
+    serialPort.write(buf,function(err,res){
+      console.log(err,res);
+    });
+  }
+}
+app.post('/tilt', function (req, res) {
+  sendTilt(req.body.tilt);
+  res.send("ok");
+});
 app.post('/move', function (req, res) {
   sendMove(req.body.l,req.body.r);
   res.send("ok");
