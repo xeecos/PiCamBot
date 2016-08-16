@@ -64,13 +64,15 @@ open the control page on your pc/tablet's browser
 http://your rpi's ip:8080/
 ```
 ### Setting Serial Port for Raspberry Pi 3
-####NOTE FOR RASPBERRY PI 3: The Raspberry pi 3 has changed things around a bit: ttyAMA0 now refers to the serial port that is connected to the bluetooth. The old serial port is now called ttyS0. So if you have an RPI3, everywhere you see "ttyAMA0" below, you should read "ttyS0".
 
-####The Broadcom UART appears as /dev/ttyAMA0 under Linux. There are several minor things in the way if you want to have dedicated control of the serial port on a Raspberry Pi.
+NOTE FOR RASPBERRY PI 3: The Raspberry pi 3 has changed things around a bit: ttyAMA0 now refers to the serial port that is connected to the bluetooth. The old serial port is now called ttyS0. So if you have an RPI3, everywhere you see "ttyAMA0" below, you should read "ttyS0".
+
+The Broadcom UART appears as /dev/ttyAMA0 under Linux. There are several minor things in the way if you want to have dedicated control of the serial port on a Raspberry Pi.
 
 ```sudo nano /boot/cmdline.txt```
 
  * Firstly, the kernel will use the port as controlled by kernel command line contained in /boot/cmdline.txt. The file will look something like this:
+ 
 ```
 dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
 ```
@@ -80,15 +82,20 @@ dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 r
 dwc_otg.lpm_enable=0 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
 ```
 
- * Modifying the /boot/config.txt removes this dependency by adding the following line at the end:-
+ * Modifying the /boot/config.txt removes this dependency by adding the following line at the end:
 
-```core_freq=250```
+```
+core_freq=250
+```
 
-###Launch Service On Boot
-```sudo cp PiCamBot.service /etc/init.d/picambot.service
+### Launch Service On Boot
+
+```
+sudo cp PiCamBot.service /etc/init.d/picambot.service
 sudo chmod +x /etc/init.d/picambot.service
 sudo update-rc.d picambot defaults
 ```
+
 ```
 sudo service picambot start #start service
 sudo service picambot stop #stop service
