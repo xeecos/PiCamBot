@@ -20,7 +20,7 @@ body {
     $.post("/move",{l:0,r:0},function(result){});
   }
   function moving(leftSpeed,rightSpeed){
-    $.post("/move",{l:leftSpeed,r:rightSpeed},function(result){});
+    $.post("/move",{l:Math.floor(-leftSpeed/2),r:Math.floor(-rightSpeed/2)},function(result){});
   }
   var angle = 90;
   function tilt(t){
@@ -52,7 +52,7 @@ body {
 	</div>
   <div class="center" style="margin-top:20px;width:640px;height:100px;position:relative;left:-20px;">
     <div style="display:block;position:absolute;width:200px;left:0px;top:40px;">
-      <a role="button"  ontouchstart="moving(150,150)" onmousedown="moving(150,150)" ontouchend="stopMoving()" onmouseup="stopMoving()" class="robotButton">&nbsp;Turn Left&nbsp;</a>
+      <a role="button"  ontouchstart="moving(-150,-150)" onmousedown="moving(-150,-150)" ontouchend="stopMoving()" onmouseup="stopMoving()" class="robotButton">&nbsp;Turn Left&nbsp;</a>
     </div>
     <div style="display:block;position:absolute;width:200px;left:120px;top:0px;">
       <a role="button"  ontouchstart="moving(-150,150)" onmousedown="moving(-150,150)"  ontouchend="stopMoving()" onmouseup="stopMoving()" class="robotButton">&nbsp; Forward &nbsp;</a>
@@ -61,7 +61,7 @@ body {
       <a role="button"  ontouchstart="moving(150,-150)" onmousedown="moving(150,-150)"  ontouchend="stopMoving()" onmouseup="stopMoving()" class="robotButton">&nbsp;Backward&nbsp;</a>
     </div>
     <div style="display:block;position:absolute;width:200px;left:240px;top:40px;">
-      <a role="button"  ontouchstart="moving(-150,-150)" onmousedown="moving(-150,-150)"  ontouchend="stopMoving()" onmouseup="stopMoving()" class="robotButton">&nbsp;Turn Right&nbsp;</a>
+      <a role="button"  ontouchstart="moving(150,150)" onmousedown="moving(150,150)"  ontouchend="stopMoving()" onmouseup="stopMoving()" class="robotButton">&nbsp;Turn Right&nbsp;</a>
     </div>
     <div style="display:block;position:absolute;width:200px;left:480px;top:0px;">
       <a role="button"  ontouchstart="tilt(5)" onmousedown="tilt(5)" class="robotButton">&nbsp;   Tilt Up   &nbsp;</a>

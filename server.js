@@ -33,16 +33,18 @@ function sendMove(leftSpeed,rightSpeed){
     var buf = new Buffer([0xff,0x55,0x7,0x0,0x2,0x5,0,0,0,0]);
     buf.writeInt16LE(leftSpeed,6);
     buf.writeInt16LE(rightSpeed,8);
+//      console.log(buf);
     serialPort.write(buf,function(err,res){
-      console.log(err,res);
+      console.log(res);
     });
   }
 }
 function sendTilt(tilt){
   if(serialPort&&isConnect){
     var buf = new Buffer([0xff,0x55,0x6,0x0,0x2,0xb,0x6,0x1,tilt]);
+  //    console.log(buf);
     serialPort.write(buf,function(err,res){
-      console.log(err,res);
+      console.log(res);
     });
   }
 }
@@ -56,18 +58,18 @@ app.post('/move', function (req, res) {
 });
 app.post('/connect',(req,res) => {
 	if(isConnect==false){
-    serialPort = new SerialPort(req.body.port, {baudrate: 115200});
-    serialPort.on('open', function () {
-      console.log('serial opened!');
-	isConnect = true;
-      serialPort.on('data', function (data) {
-	console.log(data);
-      });
-    });
-    serialPort.on('close', function () {
-	isConnect = false;
-      console.log('close');
-    })
+		serialPort = new SerialPort(req.body.port, {baudrate: 115200});
+		serialPort.on('open', function () {
+			console.log('serial opened!');
+			isConnect = true;
+		  	serialPort.on('data', function (data) {
+//				console.log(data);
+			});
+		});
+		serialPort.on('close', function () {
+			isConnect = false;
+			console.log('close');
+		})
 	}
     res.send('ok');
 });
@@ -85,6 +87,7 @@ app.post('/disconnect',(req,res) => {
         serialPort.close();
     }
     serialPort = null;
+    res.send('ok');
 });
 
 var STREAM_MAGIC_BYTES = 'jsmp'; // Must be 4 bytes
