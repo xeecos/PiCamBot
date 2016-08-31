@@ -70,6 +70,8 @@ app.post('/connect',(req,res) => {
 			isConnect = false;
 			console.log('close');
 		})
+		                        
+	  childProcess.exec('/home/pi/PiCamBot/bin/do_ffmpeg.sh');
 	}
     res.send('ok');
 });
@@ -85,6 +87,8 @@ app.post('/list',(req,res) => {
 app.post('/disconnect',(req,res) => {
     if(serialPort&&isConnect){
         serialPort.close();
+        
+	  childProcess.exec('/home/pi/PiCamBot/bin/stop_ffmpeg.sh');
     }
     serialPort = null;
     res.send('ok');
